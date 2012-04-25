@@ -1147,7 +1147,8 @@ void Task::validate ()
     std::string priority = get ("priority");
     if (priority != "H" &&
         priority != "M" &&
-        priority != "L")
+        priority != "L" &&
+        priority != "D")
       throw format (STRING_TASK_VALID_PRIORITY, priority);
   }
 }
@@ -1255,7 +1256,7 @@ float Task::urgency_c () const
   value += urgency_blocking ()    * context.config.getReal ("urgency.blocking.coefficient");
   value += urgency_age ()         * context.config.getReal ("urgency.age.coefficient");
 
-/* 
+/*
   std::cout << "# Urgency for " << id << ":\n"
           << "#     pri " << (urgency_priority ()    * context.config.getReal ("urgency.priority.coefficient"))
           << "#     pro " << (urgency_project ()     * context.config.getReal ("urgency.project.coefficient"))
@@ -1327,6 +1328,7 @@ float Task::urgency_priority () const
        if (value == "H") return 1.0;
   else if (value == "M") return 0.65;
   else if (value == "L") return 0.3;
+  else if (value == "D") return 0.1;
 
   return 0.0;
 }
