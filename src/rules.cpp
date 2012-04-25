@@ -123,6 +123,14 @@ static void colorizePriorityH (Task& task, const std::string& rule, Color& c)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+static void colorizePriorityD (Task& task, const std::string& rule, Color& c)
+{
+  if (gsColor[rule].nontrivial ())
+    if (task.get ("priority") == "D")
+      c.blend (gsColor[rule]);
+}
+
+////////////////////////////////////////////////////////////////////////////////
 static void colorizePriorityNone (Task& task, const std::string& rule, Color& c)
 {
   if (gsColor[rule].nontrivial ())
@@ -289,6 +297,7 @@ void autoColorize (Task& task, Color& c)
     else if (*r == "color.pri.L")                  colorizePriorityL    (task, *r, c);
     else if (*r == "color.pri.M")                  colorizePriorityM    (task, *r, c);
     else if (*r == "color.pri.H")                  colorizePriorityH    (task, *r, c);
+    else if (*r == "color.pri.D")                  colorizePriorityD    (task, *r, c);
     else if (*r == "color.pri.none")               colorizePriorityNone (task, *r, c);
     else if (*r == "color.active")                 colorizeActive       (task, *r, c);
     else if (*r == "color.project.none")           colorizeProjectNone  (task, *r, c);

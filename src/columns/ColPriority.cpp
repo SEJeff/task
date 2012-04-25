@@ -62,6 +62,7 @@ bool ColumnPriority::validate (std::string& value)
   if (value == "H" ||
       value == "M" ||
       value == "L" ||
+      value == "D" ||
       value == "")
     return true;
 
@@ -91,6 +92,7 @@ void ColumnPriority::measure (Task& task, int& minimum, int& maximum)
          if (priority == "H") minimum = maximum = 4;
     else if (priority == "M") minimum = maximum = 6;
     else if (priority == "L") minimum = maximum = 3;
+    else if (priority == "D") minimum = maximum = 8;
   }
   else if (_style != "default" &&
            _style != "short")
@@ -110,6 +112,7 @@ void ColumnPriority::render (
          if (priority == "H") priority = "High";
     else if (priority == "M") priority = "Medium";
     else if (priority == "L") priority = "Low";
+    else if (priority == "D") priority = "Deferred";
   }
 
   lines.push_back (color.colorize (leftJustify (priority, width)));

@@ -80,6 +80,7 @@ int CmdProjects::execute (std::string& output)
   std::map <std::string, int> unique;
   std::map <std::string, int> high;
   std::map <std::string, int> medium;
+  std::map <std::string, int> deferred;
   std::map <std::string, int> low;
   std::map <std::string, int> none;
   bool no_project = false;
@@ -95,10 +96,11 @@ int CmdProjects::execute (std::string& output)
     if (project == "")
       no_project = true;
 
-         if (priority == "H") high[project]   += 1;
-    else if (priority == "M") medium[project] += 1;
-    else if (priority == "L") low[project]    += 1;
-    else                      none[project]   += 1;
+         if (priority == "H") high[project]     += 1;
+    else if (priority == "M") medium[project]   += 1;
+    else if (priority == "D") deferred[project] += 1;
+    else if (priority == "L") low[project]      += 1;
+    else                      none[project]     += 1;
   }
 
   if (unique.size ())
@@ -123,8 +125,9 @@ int CmdProjects::execute (std::string& output)
       view.set (row, 1, project->second);
       view.set (row, 2, none[project->first]);
       view.set (row, 3, low[project->first]);
-      view.set (row, 4, medium[project->first]);
-      view.set (row, 5, high[project->first]);
+      view.set (row, 4, deferred[project->first]);
+      view.set (row, 5, medium[project->first]);
+      view.set (row, 6, high[project->first]);
     }
 
     int number_projects = unique.size ();
